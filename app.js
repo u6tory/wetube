@@ -3,8 +3,9 @@ import helmet from "helmet"; // Security
 import morgan from "morgan"; // Logging
 import cookieParser from "cookie-parser"; // 쿠키 분석 툴
 import bodyParser from "body-parser"; // body data 분석 like json, urlencoded
-import userRouter from "./routers/userRouter.js"
+import { localsMiddleware } from "./middlewares.js";
 import globalRouter from "./routers/globalRouter.js"
+import userRouter from "./routers/userRouter.js"
 import videoRouter from "./routers/videoRouter.js"
 import routes from "./routes"
 
@@ -16,6 +17,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(helmet());
 app.use(morgan("dev"));
+
+app.use(localsMiddleware); // router에 들어가기 전에 전역변수 middleware를 거치도록 만든다.
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
