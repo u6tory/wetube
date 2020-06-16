@@ -1,8 +1,9 @@
 import express from "express"; // 좀 더 현대적인 형태
 const app = express();
+const PORT = 4000;
 
 const handleListening = () => {
-    console.log("listening on port 4000");
+    console.log(`listening on port ${PORT}`);
 }
 
 const handleHome = (req, res) => { 
@@ -10,6 +11,10 @@ const handleHome = (req, res) => {
     res.send("hello from my ass"); // 우리는 res. 객체의 send로 보낸다.
 }
 
-app.get('/', handleHome); // get으로 '/' 경로로 요청이 들어오면 handleHome 함수를 실행한다.
+const handleProfile = (req, res) => res.send(`You're on my profile`);
 
-app.listen(4000, handleListening);
+app.get('/', handleHome); // get으로 '/' 경로로 요청이 들어오면 handleHome 함수를 실행한다.
+app.get('/profile', handleProfile);
+
+app.listen(PORT, handleListening);
+
