@@ -1,4 +1,6 @@
-export const home = (req, res) => res.render("home", {pageTitle: "Home"});
+import {videos} from "../db"
+
+export const home = (req, res) => res.render("home", {pageTitle: "Home", videos});
 export const search = (req, res) => {
     console.log(req.query); // = {search:"검색어"} 로 출력됨.
     const {query: {search: searchingBy}} = req;
