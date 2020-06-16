@@ -3,6 +3,7 @@ import helmet from "helmet"; // Security
 import morgan from "morgan"; // Logging
 import cookieParser from "cookie-parser"; // 쿠키 분석 툴
 import bodyParser from "body-parser"; // body data 분석 like json, urlencoded
+import { userRouter } from "./router.js"
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(morgan("dev"));
 
 app.get('/', handleHome); 
 app.get('/profile', handleProfile); // betweenHome 이라는 middleware 함수를 거쳤다가 handleProfile로 이동된다.
+app.use('/user', userRouter);
 
 export default app; // 이 파일을 import 하면 app을 기본적으로 내보낸다.
 
