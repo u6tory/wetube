@@ -1,7 +1,10 @@
 import "./db";
-import app from "./app" // npm모듈이 아니므로 ./으로 경로명을 써주어야 함
+import app from "./app"; // npm모듈이 아니므로 ./으로 경로명을 써주어야 함
+import dotenv from "dotenv";
 
-const PORT = 4000;
+dotenv.config()
+
+const PORT = process.env.PORT;
 
 const handleListening = () => console.log(`listening on http://localhost:${PORT}`);
 
