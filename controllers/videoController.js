@@ -1,7 +1,19 @@
 import routes from "../routes";
+import Video from "../models/Video";
 
-export const home = (req, res) =>
-  res.render("home", { pageTitle: "Home", videos });
+export const home = async (req, res) => {
+  try {
+    // async-await의 에러는 try-catch로 잡아야 한다.
+    const videos = await Video.find();
+    throw Error("lalala");
+    res.render("home", { pageTitle: "Home", videos });
+  } catch (error) {
+    const videos = await Video.find();
+    console.log(`An error occured by ${error}`);
+    res.render("home", { pageTitle: "Home", videos });
+  }
+};
+
 export const search = (req, res) => {
   console.log(req.query); // = {search:"검색어"} 로 출력됨.
   const {
@@ -10,6 +22,7 @@ export const search = (req, res) => {
   //  const {search: searchingBy} = req.query; 로도 가능하다.
   res.render("search", { pageTitle: "Search", searchingBy, videos }); // searchingBy: searchingBy 로도 가능
 };
+
 export const videoDetail = (req, res) => {
   res.render("videoDetail", { pageTitle: "videoDetail", videos });
 };
