@@ -11,11 +11,13 @@ import routes from "./routes";
 
 const app = express();
 
+app.use(helmet());
+
 app.set("view engine", "pug");
+app.use("/uploads", express.static("uploads"));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet());
 app.use(morgan("dev"));
 
 app.use(localsMiddleware); // router에 들어가기 전에 전역변수 middleware를 거치도록 만든다.
