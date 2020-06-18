@@ -5,12 +5,11 @@ export const home = async (req, res) => {
   try {
     // async-await의 에러는 try-catch로 잡아야 한다.
     const videos = await Video.find();
-    throw Error("lalala");
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
-    const videos = await Video.find();
+    const videos = Video.find();
     console.log(`An error occured by ${error}`);
-    res.render("home", { pageTitle: "Home", videos });
+    res.render("home", { pageTitle: "Home", videos: [] });
   }
 };
 
@@ -23,8 +22,17 @@ export const search = (req, res) => {
   res.render("search", { pageTitle: "Search", searchingBy, videos }); // searchingBy: searchingBy 로도 가능
 };
 
-export const videoDetail = (req, res) => {
-  res.render("videoDetail", { pageTitle: "videoDetail" });
+export const videoDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    res.render("videoDetail", { pageTitle: "videoDetail", video });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routs.home);
+  }
 };
 
 export const getUpload = (req, res) => {
