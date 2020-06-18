@@ -1,7 +1,7 @@
 import routes from "./routes";
 import multer from "multer";
 
-const multerVideo = multer({ dest: "videos" }); // videos 폴더에 저장한다.
+const multerVideo = multer({ dest: "uploads/videos" }); // videos 폴더에 저장한다.
 
 // middleWare를 거치게 하면서 전역 변수를 적용시킨다.
 export const localsMiddleware = (req, res, next) => {

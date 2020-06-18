@@ -4,7 +4,7 @@ import Video from "../models/Video";
 export const home = async (req, res) => {
   try {
     // async-await의 에러는 try-catch로 잡아야 한다.
-    const videos = await Video.find();
+    const videos = await Video.find({}).sort({ _id: -1 });
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     const videos = Video.find();
@@ -31,7 +31,7 @@ export const videoDetail = async (req, res) => {
     res.render("videoDetail", { pageTitle: "videoDetail", video });
   } catch (error) {
     console.log(error);
-    res.redirect(routs.home);
+    res.redirect(routes.home);
   }
 };
 
@@ -81,4 +81,16 @@ export const postEditVideo = async (req, res) => {
   } catch (error) {
     res.redirect(routes.home);
   }
+};
+
+export const deleteVideo = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    await Video.findOneAndRemove({ _id: id });
+  } catch (error) {
+    console.log(error);
+  }
+  res.redirect(routes.home);
 };
