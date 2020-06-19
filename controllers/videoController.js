@@ -13,13 +13,19 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
-  console.log(req.query); // = {search:"검색어"} 로 출력됨.
+export const search = async (req, res) => {
   const {
     query: { search: searchingBy },
   } = req;
-  //  const {search: searchingBy} = req.query; 로도 가능하다.
-  res.render("search", { pageTitle: "Search", searchingBy, videos }); // searchingBy: searchingBy 로도 가능
+  let videos = [];
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" }, // Case-insensitive
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 export const videoDetail = async (req, res) => {
