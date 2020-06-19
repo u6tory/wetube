@@ -145,3 +145,4 @@ package-lock.json
 .env
 videos
 uploads
+static
