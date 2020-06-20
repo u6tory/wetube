@@ -8,10 +8,17 @@ import globalRouter from "./routers/globalRouter.js";
 import userRouter from "./routers/userRouter.js";
 import videoRouter from "./routers/videoRouter.js";
 import routes from "./routes";
+import passport from "passport";
+import "./passport";
+import session from "express-session";
+import mongoose from "mongoose";
+import MongoStore from "connect-mongo";
 
 const app = express();
 
 app.use(helmet());
+
+const CokieStore = MongoStore(session);
 
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
@@ -20,6 +27,17 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new CokieStore({ mongooseConnection: mongoose.connection }),
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(localsMiddleware); // router에 들어가기 전에 전역변수 middleware를 거치도록 만든다.
 
