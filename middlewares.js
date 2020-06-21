@@ -7,7 +7,7 @@ const multerVideo = multer({ dest: "uploads/videos" }); // videos 폴더에 저�
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "WeTube"; // siteName 이라는 전역변수로 작용
   res.locals.routes = routes; // routes 같은 Obj도 사용 가능
-  res.locals.user = req.user || null; // pasport가 req에 user를 추가해준다.
+  res.locals.loggedUser = req.user || null; // pasport가 req에 user를 추가해준다.
   console.log(req.user);
   next(); // 이걸 해줘야 middleWare -> router로 전송된다.
 };

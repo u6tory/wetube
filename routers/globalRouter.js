@@ -7,8 +7,12 @@ import {
   postJoin,
   postLogin,
   getLogin,
+  githubLogin,
+  postGithubLogIn,
+  getMe,
 } from "../controllers/userController";
-import { onlyPublic } from "../middlewares";
+import { onlyPublic, onlyPrivate } from "../middlewares";
+import passport from "passport";
 
 const globalRouter = express.Router();
 
@@ -17,7 +21,19 @@ globalRouter.get(routes.join, onlyPublic, getJoin);
 globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
 globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);
-globalRouter.get(routes.logout, onlyPublic, logout);
+globalRouter.get(routes.logout, onlyPrivate, logout);
 globalRouter.get(routes.search, search);
+
+globalRouter.get(routes.me, getMe);
+
+//  github 링크를 클릭하면 passport-로그인을 시도하도록 연결
+globalRouter.get(routes.gitHub, githubLogin);
+
+// github에서 돌아오면 middleWare로 등록처리 후 postGithubLogIn
+globalRouter.get(
+  routes.githubCallback,
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  postGithubLogIn
+);
 
 export default globalRouter;

@@ -34,9 +34,46 @@ export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home,
 });
 
-export const logout = (req, res) => {
-  // To Do: Process Log Out
+// github 로그인
+export const githubLogin = passport.authenticate("github");
+
+// gitHub Strategy의 callback
+export const githubLoginCallback = async (_, __, profile, cb) => {
+  console.log(profile);
+  const {
+    _json: { id, avatar_url: avatarUrl, email, name }, // 나는 name이 null이므로 그냥 login id를 name으로 저장
+  } = profile;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.githubId = id;
+      user.save();
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      githubId: id,
+      avatarUrl: avatarUrl,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    return cb(error);
+  }
+}; // accessToken, refreshToken을 _, __로 지워버림ㅋㅋ
+
+// github 로그인 후 redirect 할 함수
+export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
+};
+
+export const logout = (req, res) => {
+  req.logout();
+  res.redirect(routes.home);
+};
+
+export const getMe = (req, res) => {
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
 };
 
 export const userDetail = (req, res) =>
