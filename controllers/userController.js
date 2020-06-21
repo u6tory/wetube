@@ -111,7 +111,8 @@ export const userDetail = async (req, res) => {
     params: { id }, // routes.js 에서 :id 로 받기 때문에
   } = req;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("videos"); // user정보에서 video list를 가져오기 위해
+    // console.log(user);
     res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
     res.redirect(routes.home);
