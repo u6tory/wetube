@@ -10,6 +10,8 @@ import {
   githubLogin,
   postGithubLogIn,
   getMe,
+  facebookLogin,
+  postFacebookLogin,
 } from "../controllers/userController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
 import passport from "passport";
@@ -28,12 +30,18 @@ globalRouter.get(routes.me, getMe);
 
 //  github 링크를 클릭하면 passport-로그인을 시도하도록 연결
 globalRouter.get(routes.gitHub, githubLogin);
-
 // github에서 돌아오면 middleWare로 등록처리 후 postGithubLogIn
 globalRouter.get(
   routes.githubCallback,
   passport.authenticate("github", { failureRedirect: "/login" }),
   postGithubLogIn
+);
+
+globalRouter.get(routes.facebook, facebookLogin);
+globalRouter.get(
+  routes.facebookCallback,
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  postFacebookLogin
 );
 
 export default globalRouter;
