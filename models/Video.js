@@ -24,6 +24,10 @@ const VideoSchema = new mongoose.Schema({
       ref: "Video",
     },
   ], // Comment에 Video ID를 넣거나 Video에 Comment ID array를 넣거나 2가지 방법으로 연결할 수 있다.
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const model = mongoose.model("Video", VideoSchema);

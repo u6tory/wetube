@@ -9,9 +9,9 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  video: {
+  creator: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Video",
+    ref: "User",
   },
 }); // Comment에 Video ID를 넣거나 Video에 Comment ID array를 넣거나 2가지 방법으로 연결할 수 있다.
 
