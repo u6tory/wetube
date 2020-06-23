@@ -7,6 +7,7 @@ import { localsMiddleware } from "./middlewares.js";
 import globalRouter from "./routers/globalRouter.js";
 import userRouter from "./routers/userRouter.js";
 import videoRouter from "./routers/videoRouter.js";
+import apiRouter from "./routers/apiRouter.js";
 import routes from "./routes";
 import passport from "passport";
 import "./passport";
@@ -44,5 +45,6 @@ app.use(localsMiddleware); // router에 들어가기 전에 전역변수 middlew
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
+app.use(routes.api, apiRouter);
 
 export default app; // 이 파일을 import 하면 app을 기본적으로 내보낸다.
