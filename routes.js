@@ -25,6 +25,7 @@ const DELETE_VIDEO = "/:id/delete";
 
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
+const ADD_COMMENT = "/:id/comment";
 
 // Github
 
@@ -82,6 +83,7 @@ const routes = {
   me: ME,
   api: API,
   registerView: REGISTER_VIEW,
+  addComment: ADD_COMMENT,
 };
 
 export default routes;
