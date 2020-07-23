@@ -14,10 +14,12 @@ import "./passport";
 import session from "express-session";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
+import flash from "express-flash";
 
 const app = express();
 
 app.use(helmet());
+app.use(flash());
 
 const CokieStore = MongoStore(session);
 
