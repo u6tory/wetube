@@ -6,7 +6,6 @@ node_modules
 
 # === Rule for dotfiles ===
 # Ignore all dotfiles.
-.*
 # Exclude specific dotfiles that we want to track.
 !deps/**/.*
 !test/fixtures/**/.*
