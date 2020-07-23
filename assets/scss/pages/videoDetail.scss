@@ -12,7 +12,7 @@
     }
     .video__author {
       a {
-        color: #3498db;
+        color: #7e23ea;
       }
     }
     .video__title,
@@ -27,6 +27,7 @@
     }
     .video__views {
       font-size: 14px;
+      color: black;
     }
     .video__description {
       font-size: 16px;
@@ -35,8 +36,10 @@
   .video__comments {
     margin-top: 25px;
     text-align: center;
-    .video__comment-number {
+    .video__comment-number,
+    .video__comment-number span {
       font-size: 18px;
+      color: black;
     }
     .add__comment {
       margin-top: 25px;
@@ -48,7 +51,7 @@
     .video__comments-list {
       margin-top: 50px;
       li {
-        background-color: #3498db;
+        background-color: #7e23ea;
         color: white;
         padding: 15px;
         border-radius: 20px;

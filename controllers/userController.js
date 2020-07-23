@@ -121,7 +121,6 @@ export const userDetail = async (req, res) => {
   } = req;
   try {
     const user = await User.findById(id).populate("videos"); // user정보에서 video list를 가져오기 위해
-    // console.log(user);
     res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
     req.flash("error", "회원정보가 존재하지 않습니다.");
