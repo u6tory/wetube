@@ -1,0 +1,20 @@
+.footer {
+  margin-top: 50px;
+  // border-top: 3px solid #7e23ea;
+  width: 100%;
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #7e23ea;
+  .footer__icon {
+    color: white;
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  .footer__text {
+    color: white;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+}
