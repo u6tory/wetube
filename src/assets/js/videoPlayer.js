@@ -8,6 +8,13 @@ const totalTime = document.getElementById("totalTime");
 const progressNow = document.getElementById("progress-now");
 const videoControls = document.getElementById("videoControls");
 
+const registerView = () => {
+  const videoId = window.location.href.split("/videos/")[1];
+  fetch(`/api/${videoId}/view`, {
+    method: "POST",
+  });
+};
+
 function handlePlayBtn() {
   if (videoPlayer.paused) {
     videoPlayer.play();
@@ -79,7 +86,7 @@ async function setTotalTime() {
 
 function handleEnded() {
   videoPlayer.currentTime = 0;
-  videoPlayer.play();
+  registerView();
 }
 
 let hideTimer;
